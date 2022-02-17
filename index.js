@@ -11,9 +11,10 @@ app.use(express.static(path.join(__dirname, '/front')));
 //sends data to new requests
 app.get('/', (req, res) => {
     console.log('/')
-    res.sendFile('C:/Users/matde/Desktop/Node/front/index.html');
+    res.sendFile(__dirname);
 });
 app.get('/close', (req, res) => {
+    console.log('Process terminated')
     process.kill(process.pid, 'SIGTERM');
 });
 
@@ -24,13 +25,6 @@ io.on('connection', (socket) => { //first time connection
 server.listen(3000, () => {
     console.log('listening on *:3000');
     console.log('Dir: ' + __dirname);
-});
-
-
-process.on('SIGTERM', () => {
-    server.close(() => {
-      console.log('Process terminated')
-    });
 });
 
 
